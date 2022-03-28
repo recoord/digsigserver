@@ -7,8 +7,9 @@ class KernelModuleSigner(Signer):
 
     keytag = 'kmodsign'
 
-    def __init__(self, workdir: str, machine: str, hashalg: str):
-        signcmd = os.path.join('/usr', 'src', 'linux-headers-{}'.format(os.uname().release),
+    def __init__(self, workdir: str, machine: str, hashalg: str, signcmd:str = None):
+        if signcmd is None or signcmd == "":
+            signcmd = os.path.join('/usr', 'src', 'linux-headers-{}'.format(os.uname().release),
                                'scripts', 'sign-file')
         if not os.path.exists(signcmd):
             raise RuntimeError('cannot find {} for module signing'.format(signcmd))

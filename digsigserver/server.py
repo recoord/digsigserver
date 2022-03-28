@@ -113,7 +113,7 @@ async def sign_handler_modules(req: request):
         return text("Invalid artifact", status=400)
     with tempfile.TemporaryDirectory() as workdir:
         try:
-            s = KernelModuleSigner(workdir, req.form.get("machine"), req.form.get("hashalg", "sha512"))
+            s = KernelModuleSigner(workdir, req.form.get("machine"), req.form.get("hashalg", "sha512"), app.config.get("KMOD_SIGN_BASE",None))
         except ValueError:
             return text("Invalid parameters", status=400)
 
